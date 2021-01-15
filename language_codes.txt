@@ -1,0 +1,14 @@
+
+English | en
+German | de
+Spanish | es
+French | fr
+Italian | it
+Korean | ko
+
+Englisch | en
+Deutsch | de
+Spanisch | es
+Französisch | fr
+Italienisch | it
+Koreanisch | ko
