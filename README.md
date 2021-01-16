@@ -3,6 +3,7 @@ How to use
 
 1. Make sure you have Python and Pip installed on your device.
 
+
 2. Download a video that you want to translate from one language to another language.
 
 3. Download this from Github.
