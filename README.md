@@ -1,4 +1,4 @@
-# Video Translator
+Video Translator
 
 How to use
 ----------
