@@ -1,5 +1,7 @@
 import os
 
+import math
+
 import speech_recognition as sr
 
 from googletrans import Translator
@@ -76,11 +78,9 @@ input_original_language()
 
 input_target_language()
 
-t_language = "english"
+print("\nExtracting speech from video (This might take a while as the application has to listen to the whole video) ...")
 
-t_language_code = "en"
-
-print("\nExtracting speech from video...")
+video_duration = float(os.popen('ffmpeg\\bin\\ffprobe.exe -i "' + video_path + '" -show_entries format=duration -v quiet -of csv="p=0"').read())
 
 os.system('ffmpeg\\bin\\ffmpeg.exe -i "' + video_path + '" -q:a 0 -map a audio.wav -y -hide_banner -loglevel panic')
 
@@ -90,7 +90,7 @@ transcription_num = 0
 
 r = sr.Recognizer()
 
-for i in range(29) :
+for i in range(math.ceil(video_duration / 20)) :
     
     with sr.AudioFile("audio.wav") as source :
         
@@ -101,9 +101,9 @@ for i in range(29) :
         transcription.append("")
         
         transcription_num += 1
-    
+
     transcription[transcription_num] = transcription[transcription_num] + " " + r.recognize_google(audio, language=o_language_code)
-    
+
     os.system("ffmpeg\\bin\\ffmpeg.exe -ss 20 -i audio.wav -c copy audio1.wav -y -hide_banner -loglevel panic")
     
     os.remove("audio.wav")
@@ -125,8 +125,6 @@ tts = gTTS(translation, lang=t_language_code)
 tts.save("translation.mp3")
 
 print("\nCreating new video...")
-
-video_duration = float(os.popen('ffmpeg\\bin\\ffprobe.exe -i "' + video_path + '" -show_entries format=duration -v quiet -of csv="p=0"').read())
 
 audio_duration = float(os.popen('ffmpeg\\bin\\ffprobe.exe -i translation.mp3 -show_entries format=duration -v quiet -of csv="p=0"').read())
 
