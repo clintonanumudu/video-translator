@@ -136,13 +136,17 @@ os.remove("translation.mp3")
 
 os.rename("translation1.mp3", "translation.mp3")
 
-new_video_name = "test Translated.mp4"
+if os.path.isdir("Translated") == False :
 
-os.system('ffmpeg\\bin\\ffmpeg.exe -i "' + video_path + '" -i translation.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 "' + new_video_name + '" -y -hide_banner -loglevel panic')
+    os.mkdir("Translated")
+
+new_video_name = os.path.splitext(os.path.basename(video_path))[0] + " Translated.mp4"
+
+os.system('ffmpeg\\bin\\ffmpeg.exe -i "' + video_path + '" -i translation.mp3 -c:v copy -c:a aac -map 0:v:0 -map 1:a:0 "' + "Translated\\" + new_video_name + '" -y -hide_banner -loglevel panic')
 
 os.remove("translation.mp3")
 
-os.startfile(new_video_name)
+os.startfile("Translated\\" + new_video_name)
 
 print("\nDone")
 
